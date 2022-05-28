@@ -20,5 +20,13 @@ public class Coleccion {
 		}
 	}
 	
-	
+	//No se si estara bien jajaja no encuentro fallas en mi logica
+	public ArrayList<Libro> getLibrosPorGenero(String genero){
+		for (Genero g : colecciones) {
+			if( g.getGenero() == genero) {
+				return g.getLibros();
+			}
+		}
+	return null;
+	}
 }

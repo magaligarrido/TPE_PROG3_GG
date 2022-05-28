@@ -32,7 +32,29 @@ public class Genero {
 		}
 	}
 	
+	public ArrayList<Libro> getLibros(){
+		ArrayList<Libro> libros = new ArrayList<>();
+		for (Libro libro : this.libros) {
+			libros.add(libro);
+		}
+		return libros;
+	}
+	
+	//EQUALS GENERO
 //	public boolean equals(Object o) {
+//	 try {
+//		 Genero genero = (Genero) o;
+//		 if(this.getGenero().equals(genero.getGenero())) {
+//			 for (Libro libro : libros) {
+//				if(!libro.getLibros().contains(genero))
+//			}
+//		 }
+//		 return false;
+//		 catch (Exception e) {
+//				return false;
+//			}
+//	 }
+//	} 
 //		Genero g = (Genero) o;
 //		if(this.getGenero().equals(g.getGenero())){
 //			for(int i=0; i < this.libros.size(); i++) {
@@ -40,6 +62,8 @@ public class Genero {
 //			}
 //		}
 //	}
+	
+
 //	IMPLEMENTAR COPY
 	
 	

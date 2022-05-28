@@ -54,7 +54,32 @@ public class Libro {
 		}
 	}
 	
-	//IMPLEMENTAR EQUALS PARA LIBRO
+	//Devuelve los generos de un libro
+	public ArrayList<String> getGeneros(){
+		ArrayList<String> generos = new ArrayList<>();
+		for (String genero : this.generos) {
+			generos.add(genero);
+		}
+		return generos;
+	}
 	
-	
+	//EQUALS PARA LIBRO
+	public boolean equals(Object o) {
+		try {
+			Libro libro = (Libro) o;
+			if (this.getTitulo().equals(libro.getTitulo()) && this.getAutor() == libro.getAutor()
+					&& this.getCant_paginas() == libro.getCant_paginas()) {
+				for (String genero : this.getGeneros()) {
+					if (!libro.getGeneros().contains(genero)) {
+						return false;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }
