@@ -14,9 +14,11 @@ public class Coleccion {
 		}
 	}
 	
-	public void deleteColeccion(Genero g) {
-		if(colecciones.contains(g)) {
-			
+	public void deleteColeccionPorGenero(Genero g) {
+		if(!this.colecciones.isEmpty()) {
+			if(colecciones.contains(g)) {
+				this.colecciones.remove(g);
+			}
 		}
 	}
 	
