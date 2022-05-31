@@ -8,7 +8,7 @@ public class CSVWritter {
 	public static void main(String[] args) {
 		BufferedWriter bw = null;
 		try {
-			File file = new File("C:/Users/garri/Desktop/datasets/dataset1.csv");
+			File file = new File("/datasets/dataset1.csv");
 			if (!file.exists()) {
 				file.createNewFile();
 			}

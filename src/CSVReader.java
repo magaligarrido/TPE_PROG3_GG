@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CSVReader {
 
     public static void main(String[] args) {
-        String csvFile = "C:/Users/garri/Desktop/datasets/dataset1.csv";
+        String csvFile = "./datasets/dataset4.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -14,12 +14,10 @@ public class CSVReader {
             while ((line = br.readLine()) != null) {
 
                 String[] items = line.split(cvsSplitBy);
+                for (int i = 0; i < items.length; i++) {
+                	System.out.println(items[i]);					
+				}   
                 
-                // ---------------------------------------------
-                // Poner el codigo para cargar los datos
-                // ---------------------------------------------
-                
-
             }
         } catch (IOException e) {
             e.printStackTrace();
