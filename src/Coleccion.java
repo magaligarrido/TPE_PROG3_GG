@@ -14,6 +14,44 @@ public class Coleccion {
 		}
 	}
 	
+	public boolean contieneGenero(String g) {
+		for (Genero genero : colecciones) {
+			if(g.equals(genero.getGenero())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addLibroPorGenero(String g, Libro l) {
+		for (Genero genero : colecciones) {
+			if(genero.getGenero().equals(g)) {
+				genero.addLibro(l);
+			}
+		}
+	}
+
+	public Genero getGenero(String g) {
+		Genero salida;
+		for (Genero genero : colecciones) {
+			if(genero.getGenero().equals(g)) {
+				salida = new Genero(g);
+				for (Libro l : genero.copiaLibros()) {
+					salida.addLibro(l);
+				}
+				return salida;
+			}
+		}
+		return null;
+	}
+	public ArrayList<Genero> getGeneros(){
+		ArrayList<Genero> salida = new ArrayList<>();
+		for (Genero genero : colecciones) {
+			salida.add(genero);
+		}
+		return salida;
+	}
+	
 	public void deleteColeccionPorGenero(Genero g) {
 		if(!this.colecciones.isEmpty()) {
 			if(colecciones.contains(g)) {
@@ -25,8 +63,8 @@ public class Coleccion {
 	//No se si estara bien jajaja no encuentro fallas en mi logica
 	public ArrayList<Libro> getLibrosPorGenero(String genero){
 		for (Genero g : colecciones) {
-			if( g.getGenero() == genero) {
-				return g.getLibros();
+			if( g.getGenero().equals(genero)) {
+				return g.copiaLibros();
 			}
 		}
 	return null;

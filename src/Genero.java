@@ -10,6 +10,7 @@ public class Genero {
 		this.genero = genero;
 		this.libros = new ArrayList<>();
 	}
+	
 	public String getGenero() {
 		return genero;
 	}
@@ -42,6 +43,14 @@ public class Genero {
 		return libros;
 	}
 		
+	public boolean contieneLibro(Libro l) {
+		for (Libro libro : this.libros) {
+			if(libro.equals(l)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean equals(Object o) {
 		try{
@@ -52,8 +61,9 @@ public class Genero {
 						return false;
 					}
 				}
+				return true;
 			}
-			return true;			
+			return false;			
 		}
 		catch (Exception e) {
 			return false;

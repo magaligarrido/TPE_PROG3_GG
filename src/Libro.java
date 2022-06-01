@@ -12,6 +12,8 @@ public class Libro {
 		this.cant_paginas = cant_paginas;
 		this.generos = new ArrayList<>();
 	}
+	
+
 
 	public String getTitulo() {
 		return titulo;
