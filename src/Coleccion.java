@@ -52,6 +52,7 @@ public class Coleccion {
 		return salida;
 	}
 	
+	
 	public void deleteColeccionPorGenero(Genero g) {
 		if(!this.colecciones.isEmpty()) {
 			if(colecciones.contains(g)) {
