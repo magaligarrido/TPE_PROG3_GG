@@ -10,12 +10,46 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		Coleccion coleccion = new Coleccion();
-
-		lectura(coleccion);
+		Coleccion coleccionLibros = new Coleccion();
 		
-		for (int i = 0; i < coleccion.getGeneros().size(); i++) {
-			System.out.println(i+1+": "+coleccion.getGeneros().get(i).getGenero());
+		crearColeccionLibros(coleccionLibros);
+		
+		menu(coleccionLibros);
+		
+		
+		
+
+	}
+	
+	public static void menu(Coleccion coleccionLibros) {
+		System.out.println("Elija una opcion \n"
+				+ "1-Buscar por genero \n"
+				+ "2-Estadisticas de busqueda");
+		String entradaTeclado = "";
+        Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
+        entradaTeclado = entradaEscaner.nextLine (); //Invocamos un método sobre un objeto Scanner
+        
+        int indice=Integer.parseInt(entradaTeclado);
+		switch (indice) {
+		case 1: {
+			menuBuscaGenero(coleccionLibros);
+			break;
+		}
+		case 2: {
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + indice);
+		}
+		
+	}
+	
+	public static void crearColeccionLibros(Coleccion coleccionLibros) {
+		lecturaLibros(coleccionLibros);
+	}
+	public static void menuBuscaGenero(Coleccion coleccionLibros) {
+		for (int i = 0; i < coleccionLibros.getGeneros().size(); i++) {
+			System.out.println(i+1+": "+coleccionLibros.getGeneros().get(i).getGenero());
 		}
 		System.out.println("ingrese Genero a filtrar");
 		
@@ -24,19 +58,17 @@ public class Main {
         entradaTeclado = entradaEscaner.nextLine (); //Invocamos un método sobre un objeto Scanner
         
         int indice=Integer.parseInt(entradaTeclado);
-        String generoBuscado = coleccion.getGeneros().get(indice-1).getGenero();
+        String generoBuscado = coleccionLibros.getGeneros().get(indice-1).getGenero();
         
-        ArrayList<Libro> generoFiltrado = coleccion.getLibrosPorGenero(generoBuscado);
+        ArrayList<Libro> generoFiltrado = coleccionLibros.getLibrosPorGenero(generoBuscado);
         
         for (Libro libro : generoFiltrado) {
 			System.out.println(libro.getAutor());
 		}
-        escritura(generoFiltrado);
-		
-
+        escrituraLibros(generoFiltrado);
 	}
 	
-	public static void escritura(ArrayList<Libro>libros) {
+	public static void escrituraLibros(ArrayList<Libro>libros) {
 		BufferedWriter bw = null;
 		try {
 			File file = new File("./datasets/datasetBuscado.csv");
@@ -65,7 +97,7 @@ public class Main {
 		}
 	}
 	
-	public static void lectura(Coleccion coleccion) {
+	public static void lecturaLibros(Coleccion coleccion) {
     	
     	long startime = System.currentTimeMillis();
     	
