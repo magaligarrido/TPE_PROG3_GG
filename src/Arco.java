@@ -1,25 +1,33 @@
-
-public class Arco<Integer> {
-	private int verticeOrigen;
-	private int verticeDestino;
-	private Integer contador;
+public class Arco<T> {
+	private String verticeOrigen;
+	private String verticeDestino;
+	private int contador;
 	
 	
-	public Arco(int verticeOrigen, int verticeDestino, Integer contador) {
+	public Arco(String verticeOrigen, String verticeDestino,int contador) {
 		this.verticeOrigen = verticeOrigen;
 		this.verticeDestino = verticeDestino;
 		this.contador = contador;
 	}
-	
-	public int getVerticeOrigen() {
+
+	public String getVerticeOrigen() {
 		return verticeOrigen;
 	}
 	
-	public int getVerticeDestino() {
+	public String getVerticeDestino() {
 		return verticeDestino;
 	}
 	
-	public Integer getContador() {
+	public int getContador() {
 		return contador;
+	}
+	
+	public void incrementarContador() {
+		System.out.println("llegue");
+		this.contador++;
+	}
+	
+	public String toString() {
+		return (this.getVerticeOrigen() + " " + this.getVerticeDestino()+ " repeticiones: " + contador);
 	}
 }

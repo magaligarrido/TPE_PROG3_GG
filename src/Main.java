@@ -5,19 +5,40 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
+	
 
 	public static void main(String[] args) {
-		Coleccion coleccionLibros = new Coleccion();
+		//Coleccion coleccionLibros = new Coleccion();
+		GrafoDirigido<Genero> grafoGeneros = new GrafoDirigido<>();
 		
-		crearColeccionLibros(coleccionLibros);
+		//crearColeccionLibros(coleccionLibros);
 		
-		menu(coleccionLibros);
+		//menu(coleccionLibros);
 		
-			
-
+		lecturaGeneros(grafoGeneros);
+		
+		Iterator<Genero> it = grafoGeneros.obtenerVertices();
+		int sizeVertices=0;
+		while(it.hasNext()) {
+			System.out.println(it.next().toString());
+			sizeVertices++;
+			}
+		System.out.println(sizeVertices);
+		
+		
+		Iterator<Arco<Integer>> itArco = grafoGeneros.obtenerArcos();
+		int sizeArcos=0;
+		while(itArco.hasNext()) {
+			System.out.println(itArco.next().toString());
+			sizeArcos++;
+			}
+		System.out.println(sizeArcos);
+		
+		
 	}
 	
 	public static void menu(Coleccion coleccionLibros) {
@@ -46,6 +67,7 @@ public class Main {
 	public static void crearColeccionLibros(Coleccion coleccionLibros) {
 		lecturaLibros(coleccionLibros);
 	}
+	
 	public static void menuBuscaGenero(Coleccion coleccionLibros) {
 		for (int i = 0; i < coleccionLibros.getGeneros().size(); i++) {
 			System.out.println(i+1+": "+coleccionLibros.getGeneros().get(i).getGenero());
@@ -137,11 +159,78 @@ public class Main {
             }           
             
         	long endTime = System.currentTimeMillis()- startime;
-        	//System.out.println(Long.toString(endTime));
+        	System.out.println(Long.toString(endTime));
         	
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+	public static void lecturaGeneros(GrafoDirigido<Genero> grafoGeneros) {
+
+    	long startime = System.currentTimeMillis();
+    	
+        String csvFile = "./datasetsGeneros/dataset1.csv";
+        String line = "";
+        String cvsSplitBy = ",";
+        
+        int cont = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+          	//para saltar la primer linea        	
+        	line = br.readLine();
+        	line.split(cvsSplitBy);
+        	
+            while ((line=br.readLine()) != null) { 
+                String[] filaGeneros = line.split(cvsSplitBy);
+     
+                if(filaGeneros.length>0) {
+                	Genero genero = null;
+                	for (int i = 0; i < filaGeneros.length; i++) { 
+                		String generoActual = filaGeneros[i];
+                		if (!grafoGeneros.contieneVertice(generoActual)) {                	
+                			genero = new Genero(generoActual);
+                			grafoGeneros.agregarVertice(generoActual, genero);
+                			                			                			
+                		} else {
+                			genero = grafoGeneros.getGenero(generoActual);
+                		}         
+                		
+                		if(filaGeneros.length > (i + 1)) {
+                			String siguiente = filaGeneros[i+1];
+                			if(!grafoGeneros.contieneVertice(siguiente)) {      
+                			    Genero generoSiguiente = new Genero(siguiente);        			
+                				              			
+                				grafoGeneros.agregarVertice(siguiente, generoSiguiente);
+                				               				
+                			} 
+                			
+                			if (!grafoGeneros.existeArco(generoActual, siguiente)) { 
+                				int contador = 1;
+                				grafoGeneros.agregarArco(generoActual, siguiente,contador);
+                				cont++;
+                			}else{                  				
+                				grafoGeneros.incrementarArco(generoActual, siguiente);   
+                				
+                				}
+                   			} 
+                	}
+               	}		
+            }
+                              	                     
+        	long endTime = System.currentTimeMillis()- startime;
+        	System.out.println(Long.toString(endTime));
+        	System.out.println(cont);
+        	
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+       
+		
+	}
 }
+
+               	
+                			
+	      

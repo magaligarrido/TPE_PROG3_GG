@@ -4,11 +4,17 @@ import java.util.Iterator;
 public class Genero {
 	private String genero;
 	private ArrayList<Libro> libros;
+	private ArrayList<Arco<Integer>> arcos;
 	
 	public Genero(String genero) {
 		super();
 		this.genero = genero;
 		this.libros = new ArrayList<>();
+		this.arcos = new ArrayList<>();
+	}
+	
+	public String toString() {
+		return this.getGenero();
 	}
 	
 	public String getGenero() {
@@ -22,6 +28,35 @@ public class Genero {
 		if(!libros.contains(l)) {
 			this.libros.add(l);
 		}
+	}
+	
+	public void addArco(Arco<Integer> arco) {
+		this.arcos.add(arco);
+	}
+	
+	public ArrayList<Arco<Integer>> getArcos(){
+		ArrayList<Arco<Integer>> salida = new ArrayList<>();
+		for (Arco<Integer> arco : arcos) {
+			salida.add(arco);			
+		}
+		return salida;
+	}
+	
+	public void aumentarContador(String generoDestino){
+		for (Arco<Integer> arco : arcos) {
+			if(arco.getVerticeDestino().equals(generoDestino)) {
+				arco.incrementarContador();
+			}
+		}
+		
+	}	
+	public boolean existeArco(String generoDestino) {
+		for (Arco<Integer> arco : arcos) {
+			if(arco.getVerticeDestino().equals(generoDestino)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void deleteLibro(Libro l) {

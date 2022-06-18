@@ -1,46 +1,58 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
-public class GrafoDirigido implements Grafo<String> {
+public class GrafoDirigido<T> implements Grafo<T> {
+	private HashMap<String, Genero> indicesGeneros;
+	
+	
+	public void agregarVertice(String key, Genero genero) {
+		if(indicesGeneros == null) {    //Revisar esto
+			this.indicesGeneros = new HashMap<>();
+		}
+		this.indicesGeneros.put(key, genero);
+	}
 
 	@Override
-	public void agregarVertice(String genero) {
+	public void borrarVertice(int verticeId) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void borrarVertice(String genero) {
+	public void agregarArco(String origen, String destino, int contador) {
+		Arco<Integer> a = new Arco<>(origen, destino, contador);
+		this.indicesGeneros.get(origen).addArco(a);		
+	}
+
+	@Override
+	public void borrarArco(int verticeId1, int verticeId2) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void agregarArco(String genero1, String genero2, Integer contador) {
+	public boolean contieneVertice(int verticeId) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
-
-	@Override
-	public void borrarArco(String genero1, String genero2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean contieneVertice(String genero) {
-		// TODO Auto-generated method stub
+	
+	public boolean contieneVertice(String verticeNombre) {
+		//recorremos todo el grafo para ver si existe el vertice
 		return false;
 	}
 
 	@Override
-	public boolean existeArco(String genero1, String genero2) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean existeArco(String origen, String destino) {
+		return this.indicesGeneros.get(origen).existeArco(destino);
 	}
 
+	public void incrementarArco(String origen, String destino) {
+		indicesGeneros.get(origen).aumentarContador(destino);
+	}
+	
 	@Override
-	public Arco<Integer> obtenerArco(String genero1, String genero2) {
-		// TODO Auto-generated method stub
+	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
 		return null;
 	}
 
@@ -50,30 +62,41 @@ public class GrafoDirigido implements Grafo<String> {
 		return 0;
 	}
 
+	public Genero getGenero(String genero) {
+		return indicesGeneros.get(genero);	
+	}
+	
 	@Override
-	public Iterator<String> obtenerVertices() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<Genero> obtenerVertices() {
+		ArrayList<Genero> salida = new ArrayList<>();
+		for (Genero g : indicesGeneros.values()) {
+			salida.add(g);
+		}
+		Iterator<Genero> iterator = (salida.iterator());
+		return iterator;
 	}
 
 	@Override
-	public Iterator<String> obtenerAdyacentes(String genero) {
+	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Iterator<Arco<Integer>> obtenerArcos() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Arco<Integer>> salida = new ArrayList<>();
+		for (Genero g: indicesGeneros.values()) {
+				salida.addAll(g.getArcos());
+			}	
+		Iterator<Arco<Integer>> iterator = salida.iterator();
+		return iterator;
 	}
 
 	@Override
-	public Iterator<Arco<Integer>> obtenerArcos(String genero) {
+	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 
 }
