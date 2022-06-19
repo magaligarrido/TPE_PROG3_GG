@@ -38,9 +38,41 @@ public class Main {
 			}
 		System.out.println(sizeArcos);
 		
-		
+		String entradaTeclado = "";
+        Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
+        entradaTeclado = entradaEscaner.nextLine (); //Invocamos un método sobre un objeto Scanner
+        
+        String generoBuscar=entradaTeclado;
+        //inciso 1
+       /* ArrayList<Arco<Integer>> generosMasBuscados=buscarMayorRepeticion(generoBuscar,grafoGeneros);
+        for(Arco<Integer> a: generosMasBuscados) {
+            System.out.println(a.toString());
+        }*/
+        
+        //inciso 2
+        
+    	if(grafoGeneros.contieneVertice(generoBuscar)) {
+			Genero generoInicial=grafoGeneros.getGenero(generoBuscar);
+			BackTracking backtracking= new BackTracking();
+			
+			Solucion sol =backtracking.back(generoInicial,grafoGeneros);
+			System.out.println(sol);			
+		}
+    	System.out.println("salio");
 	}
+
 	
+	public static ArrayList<Arco<Integer>> buscarMayorRepeticion(String generoBuscar, GrafoDirigido<Genero> grafo) {
+		
+		if(grafo.contieneVertice(generoBuscar)) {
+			Genero generoBuscado=grafo.getGenero(generoBuscar);
+			ArrayList<Arco<Integer>> arcosOrdenados= generoBuscado.getArcosOrdenadosPorPeso();
+		
+			return arcosOrdenados;
+			
+		}
+		return null;
+	}
 	public static void menu(Coleccion coleccionLibros) {
 		System.out.println("Elija una opcion \n"
 				+ "1-Buscar por genero \n"
@@ -60,8 +92,7 @@ public class Main {
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + indice);
-		}
-		
+		}		
 	}
 	
 	public static void crearColeccionLibros(Coleccion coleccionLibros) {
@@ -206,13 +237,13 @@ public class Main {
                 			} 
                 			
                 			if (!grafoGeneros.existeArco(generoActual, siguiente)) { 
-                				int contador = 1;
+                				int contador = 0;
                 				grafoGeneros.agregarArco(generoActual, siguiente,contador);
                 				cont++;
-                			}else{                  				
-                				grafoGeneros.incrementarArco(generoActual, siguiente);   
+                			}
+                			grafoGeneros.incrementarArco(generoActual, siguiente);   
                 				
-                				}
+                				
                    			} 
                 	}
                	}		

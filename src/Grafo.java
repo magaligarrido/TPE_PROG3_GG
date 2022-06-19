@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public interface Grafo<T> {
@@ -30,12 +31,12 @@ public interface Grafo<T> {
 		public Iterator<Genero> obtenerVertices();
 		
 		//Obtiene un iterador que permite recorrer todos los vertices adyacentes
-		public Iterator<Integer> obtenerAdyacentes(int verticeId);
+		public ArrayList<Arco<Integer>> obtenerAdyacentes(String origen);
 		
 		//Obtiene un iterador que permite recorrer todos los arcos del grafo
 		public Iterator<Arco<Integer>> obtenerArcos();
 		
 		//Obtiene un iterador que permite recorres todos los arcos que parten desde verticeId
-		public Iterator<Arco<T>> obtenerArcos(int verticeId);
+		public Iterator<Arco<T>> obtenerArcos(String verticeId);
 
 }

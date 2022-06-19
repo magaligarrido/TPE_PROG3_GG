@@ -1,4 +1,4 @@
-public class Arco<T> {
+public class Arco<T>{
 	private String verticeOrigen;
 	private String verticeDestino;
 	private int contador;
@@ -23,11 +23,20 @@ public class Arco<T> {
 	}
 	
 	public void incrementarContador() {
-		System.out.println("llegue");
+
 		this.contador++;
+		
+	}
+	
+	public boolean equals(Object o) {
+		Arco<Integer> a = (Arco<Integer>) o;
+		if((a.getVerticeOrigen().equals(this.getVerticeOrigen()))&&(a.getVerticeDestino().equals(this.getVerticeDestino()))){
+			return true;
+		}
+		return false;
 	}
 	
 	public String toString() {
-		return (this.getVerticeOrigen() + " " + this.getVerticeDestino()+ " repeticiones: " + contador);
+		return (this.getVerticeOrigen() + " --> " + this.getVerticeDestino()+ " -- cantidad de repeticiones: " + contador);
 	}
 }

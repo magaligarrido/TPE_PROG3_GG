@@ -39,9 +39,38 @@ public class Genero {
 		for (Arco<Integer> arco : arcos) {
 			salida.add(arco);			
 		}
+		
 		return salida;
 	}
 	
+	public ArrayList<Arco<Integer>> getArcosOrdenadosPorPeso(){
+		ArrayList<Arco<Integer>>salida= new ArrayList<>();
+		int [] arrPeso;
+		String[] arrDestinos;
+		arrPeso= new int[this.arcos.size()];
+		arrDestinos= new String[this.arcos.size()];
+		int pos=0;
+		while(pos<this.arcos.size()) {
+			arrPeso[pos]= this.arcos.get(pos).getContador();
+			arrDestinos[pos]=this.arcos.get(pos).getVerticeDestino();
+			pos++;
+		}
+		
+
+		MergeSort mergeSort = new MergeSort();
+		mergeSort.sort(arrPeso,arrDestinos);
+		
+		for (int i = 0; i < arrDestinos.length; i++) {
+			Arco<Integer> arco= new Arco<>(this.getGenero(),arrDestinos[i],arrPeso[i]);
+			salida.add(arco);
+			
+		}
+
+	
+
+		return salida;
+	}
+
 	public void aumentarContador(String generoDestino){
 		for (Arco<Integer> arco : arcos) {
 			if(arco.getVerticeDestino().equals(generoDestino)) {
@@ -50,12 +79,19 @@ public class Genero {
 		}
 		
 	}	
+	
 	public boolean existeArco(String generoDestino) {
 		for (Arco<Integer> arco : arcos) {
 			if(arco.getVerticeDestino().equals(generoDestino)) {
 				return true;
 			}
 		}
+		return false;
+	}
+	
+	public boolean tieneAdyacentes() {
+		if(!this.arcos.isEmpty())
+			return true;
 		return false;
 	}
 	

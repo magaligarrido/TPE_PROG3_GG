@@ -38,7 +38,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 	
 	public boolean contieneVertice(String verticeNombre) {
-		//recorremos todo el grafo para ver si existe el vertice
+		if(this.indicesGeneros != null) {
+			return this.indicesGeneros.containsKey(verticeNombre);
+		}
 		return false;
 	}
 
@@ -75,10 +77,14 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		Iterator<Genero> iterator = (salida.iterator());
 		return iterator;
 	}
+	
 
 	@Override
-	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
-		// TODO Auto-generated method stub
+	public ArrayList<Arco<Integer>> obtenerAdyacentes(String genero) {
+		if(!this.getGenero(genero).getArcos().isEmpty()) {
+			ArrayList<Arco<Integer>>salida= this.getGenero(genero).getArcos();
+			return salida;
+		}
 		return null;
 	}
 
@@ -93,7 +99,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
-	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
+	public Iterator<Arco<T>> obtenerArcos(String genero) {
 		// TODO Auto-generated method stub
 		return null;
 	}
