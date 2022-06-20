@@ -2,10 +2,18 @@ import java.util.ArrayList;
 
 public class Coleccion {
 	private ArrayList<Genero> colecciones;
+	private Nodo root;
 
-	public Coleccion() {
+	public Coleccion(Nodo nodo) {
 		super();
 		this.colecciones = new ArrayList<>();
+		this.root= nodo;
+	}
+	public Nodo getRoot() {
+		return this.root;
+	}
+	public void setroot(Nodo root) {
+		this.root=root;
 	}
 	
 	public void addColeccion(Genero g) {

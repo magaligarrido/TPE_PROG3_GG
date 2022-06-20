@@ -11,11 +11,15 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		Coleccion coleccionLibros = new Coleccion();
+		Nodo raiz = null;
+		Coleccion coleccionLibros = new Coleccion(raiz);
+		
 		GrafoDirigido<Genero> grafoGeneros = new GrafoDirigido<>();
 
+		// crearColeccionLibros(coleccionLibros);
 		crearColeccionLibros(coleccionLibros);
 
+		// menu(coleccionLibros, grafoGeneros);
 		menu(coleccionLibros, grafoGeneros);
 
 	}
@@ -32,7 +36,9 @@ public class Main {
 		return null;
 	}
 
-	public static void menu(Coleccion coleccionLibros, GrafoDirigido<Genero> grafoGeneros)  {
+
+
+	public static void menu(Coleccion coleccionLibros, GrafoDirigido<Genero> grafoGeneros) {
 		System.out.println("Elija una opcion \n" + "1-Buscar por genero \n" + "2-Estadisticas de busqueda");
 		String entradaTeclado = "";
 		Scanner entradaEscaner = new Scanner(System.in); // Creación de un objeto Scanner
@@ -63,25 +69,30 @@ public class Main {
 		lecturaLibros(coleccionLibros);
 	}
 
+
+
+
 	public static void menuParteUno(Coleccion coleccionLibros) {
-		for (int i = 0; i < coleccionLibros.getGeneros().size(); i++) {
-			System.out.println(i + 1 + ": " + coleccionLibros.getGeneros().get(i).getGenero());
-		}
+
 		System.out.println("ingrese Genero a filtrar");
 
 		String entradaTeclado = "";
 		Scanner entradaEscaner = new Scanner(System.in); // Creación de un objeto Scanner
 		entradaTeclado = entradaEscaner.nextLine(); // Invocamos un método sobre un objeto Scanner
 
-		int indice = Integer.parseInt(entradaTeclado);
-		String generoBuscado = coleccionLibros.getGeneros().get(indice - 1).getGenero();
+		String generoBuscado = entradaTeclado;
+		if(coleccionLibros.getRoot().existeGenero(generoBuscado)) {
+			ArrayList<Libro> generoFiltrado = new ArrayList<>(coleccionLibros.getRoot().getNodo(generoBuscado).getGenero().copiaLibros());
 
-		ArrayList<Libro> generoFiltrado = coleccionLibros.getLibrosPorGenero(generoBuscado);
-
-		for (Libro libro : generoFiltrado) {
-			System.out.println(libro.getAutor());
+			for (Libro libro : generoFiltrado) {
+				System.out.println(libro.getAutor());
+			}
+			escrituraLibros(generoFiltrado);
+		}else {
+			System.out.println("No se encontro genero");
 		}
-		escrituraLibros(generoFiltrado);
+
+		
 	}
 
 	public static void menuParteDos(GrafoDirigido<Genero> grafoGeneros) {
@@ -157,8 +168,7 @@ public class Main {
 		}
 	}
 
-	public static void lecturaLibros(Coleccion coleccion) {
-
+	public static void lecturaLibros(Coleccion coleccionLibros) {
 		long startime = System.currentTimeMillis();
 
 		String csvFile = "./datasets/dataset2.csv";
@@ -181,16 +191,23 @@ public class Main {
 
 							libro.addGenero(generos[j]);
 						}
-						for (int i = 0; i < libro.getGeneros().size(); i++) {
+						for (int i = 0; i < generos.length; i++) {
 
-							String g = libro.getGeneros().get(i);
-							if (!coleccion.contieneGenero(g)) {
+							String genero = generos[i];
 
-								Genero genero = new Genero(g);
-								coleccion.addColeccion(genero);
+							if (coleccionLibros.getRoot() == null) {
+								Genero g = new Genero(genero);
+								g.addLibro(libro);
+								coleccionLibros.setroot(new Nodo(g));
+							} else if (!coleccionLibros.getRoot().existeGenero(genero)) {
+								Genero g = new Genero(genero);
+								g.addLibro(libro);
+								coleccionLibros.getRoot().addGenero(g);
+
+							} else {
+								coleccionLibros.getRoot().getNodo(genero).getGenero().addLibro(libro);
 
 							}
-							coleccion.addLibroPorGenero(g, libro);
 
 						}
 					}
@@ -203,13 +220,16 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
+
+
 
 	public static void lecturaGeneros(GrafoDirigido<Genero> grafoGeneros) {
 
 		long startime = System.currentTimeMillis();
 
-		String csvFile = "./datasetsGeneros/dataset1.csv";
+		String csvFile = "./datasetsGeneros/dataset2.csv";
 		String line = "";
 		String cvsSplitBy = ",";
 
