@@ -20,7 +20,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
-	public void agregarArco(String origen, String destino, int contador) {
+	public void agregarArco(Genero origen, Genero destino, int contador) {
 		Arco<Integer> a = new Arco<>(origen, destino, contador);
 		this.indicesGeneros.get(origen).addArco(a);		
 	}
@@ -102,6 +102,24 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public Iterator<Arco<T>> obtenerArcos(String genero) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public ArrayList<Genero> obtenerCiclo(String primero,String ultimo){
+		ArrayList<Genero> generos = new ArrayList<>();
+
+		Genero generoInicial =this.indicesGeneros.get(primero);
+
+		ArrayList<Arco<Integer>> arcos = generoInicial.getArcos();
+		for (Arco<Integer> arco : arcos) {
+			if(!arco.getVerticeDestino().equals(generoInicial.getGenero()))
+				generos.addAll(obtenerCiclo(primero,ultimo));
+		}
+		
+		
+		
+		return generos;
+		
+		
 	}
 	
 

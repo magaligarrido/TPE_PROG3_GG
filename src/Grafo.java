@@ -10,7 +10,7 @@ public interface Grafo<T> {
 		public void borrarVertice(int verticeId);
 		
 		//Agrega arco con una etiqueta que conecta el  verticeId1 con el verticeId2
-		public void agregarArco(String origen, String destino, int contador);
+		public void agregarArco(Genero origen, Genero destino, int contador);
 		
 		// Borra el arco que conecta el verticeId1 con el verticeId2
 		public void borrarArco(int verticeId1, int verticeId2);

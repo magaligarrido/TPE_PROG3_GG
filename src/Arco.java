@@ -1,20 +1,20 @@
 public class Arco<T>{
-	private String verticeOrigen;
-	private String verticeDestino;
+	private Genero verticeOrigen;
+	private Genero verticeDestino;
 	private int contador;
 	
 	
-	public Arco(String verticeOrigen, String verticeDestino,int contador) {
+	public Arco(Genero verticeOrigen, Genero verticeDestino,int contador) {
 		this.verticeOrigen = verticeOrigen;
 		this.verticeDestino = verticeDestino;
 		this.contador = contador;
 	}
 
-	public String getVerticeOrigen() {
+	public Genero getVerticeOrigen() {
 		return verticeOrigen;
 	}
 	
-	public String getVerticeDestino() {
+	public Genero getVerticeDestino() {
 		return verticeDestino;
 	}
 	

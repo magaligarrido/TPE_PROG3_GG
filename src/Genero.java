@@ -31,9 +31,9 @@ public class Genero {
 
 	public void addLibro(Libro l) {
 
-		if (!libros.contains(l)) {
+		
 			this.libros.add(l);
-		}
+		
 	}
 
 	public void addArco(Arco<Integer> arco) {
@@ -52,9 +52,9 @@ public class Genero {
 	public ArrayList<Arco<Integer>> getArcosOrdenadosPorPeso() {
 		ArrayList<Arco<Integer>> salida = new ArrayList<>();
 		int[] arrPeso;
-		String[] arrDestinos;
+		Genero[] arrDestinos;
 		arrPeso = new int[this.arcos.size()];
-		arrDestinos = new String[this.arcos.size()];
+		arrDestinos = new Genero[this.arcos.size()];
 		int pos = 0;
 		while (pos < this.arcos.size()) {
 			arrPeso[pos] = this.arcos.get(pos).getContador();
@@ -66,7 +66,7 @@ public class Genero {
 		mergeSort.sort(arrPeso, arrDestinos);
 
 		for (int i = 0; i < arrDestinos.length; i++) {
-			Arco<Integer> arco = new Arco<>(this.getGenero(), arrDestinos[i], arrPeso[i]);
+			Arco<Integer> arco = new Arco<>(this, arrDestinos[i], arrPeso[i]);
 			salida.add(arco);
 
 		}
@@ -109,7 +109,7 @@ public class Genero {
 		}
 	}
 
-	public ArrayList<Libro> copiaLibros() {
+	public ArrayList<Libro> getLibros() {
 		ArrayList<Libro> libros = new ArrayList<>();
 		for (Libro libro : this.libros) {
 			libros.add(libro);
@@ -130,8 +130,8 @@ public class Genero {
 		try {
 			Genero genero = (Genero) o;
 			if (this.getGenero().equals(genero.getGenero())) {
-				for (Libro libro : genero.copiaLibros()) {
-					if (!this.copiaLibros().contains(libro)) {
+				for (Libro libro : genero.getLibros()) {
+					if (!this.getLibros().contains(libro)) {
 						return false;
 					}
 				}

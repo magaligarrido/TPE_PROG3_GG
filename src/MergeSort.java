@@ -3,17 +3,17 @@ import java.util.Iterator;
 public class MergeSort {
 
 	private int [] arrPesos;
-	private String[] arrDestinos;
+	private Genero[] arrDestinos;
 	private int [] auxiliar;
-	private String[]auxDestinos;
+	private Genero[]auxDestinos;
 	private int size;
 	
-	public void sort(int[] arrPesos,String[] arrDestinos) {
+	public void sort(int[] arrPesos,Genero[] arrDestinos) {
 		this.arrPesos = arrPesos;
 		this.arrDestinos= arrDestinos;
 		this.size= arrPesos.length;
 		this.auxiliar= new int[size];
-		this.auxDestinos= new String[size];
+		this.auxDestinos= new Genero[size];
 		mergesort(0,size-1);
 
 		

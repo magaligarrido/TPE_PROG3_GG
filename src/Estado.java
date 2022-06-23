@@ -29,7 +29,7 @@ public class Estado {
 	public void agregarAlCamino(Arco<Integer> arco) {
 		
 		this.caminoActual.add(arco);
-		this.generoActual=arco.getVerticeDestino();
+		this.generoActual=arco.getVerticeDestino().getGenero();
 	}
 	public boolean contieneArcoEnCamino(Arco<Integer> arco) {
 		return this.caminoActual.contains(arco);
@@ -64,7 +64,7 @@ public class Estado {
 	}
 	
 	public String getUltimoGenero() {
-		return this.caminoActual.get(this.caminoActual.size()).getVerticeDestino();
+		return this.caminoActual.get(this.caminoActual.size()).getVerticeDestino().getGenero();
 	}
 	
 	
