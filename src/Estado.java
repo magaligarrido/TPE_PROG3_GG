@@ -4,13 +4,11 @@ public class Estado {
 	private Genero generoInicial;
 	private String generoActual;
 	private int ciclos;
-	private int peso;
 	private ArrayList<Arco<Integer>> caminoActual;
 	
-	public Estado(Genero generoInicial, int peso) {
+	public Estado(Genero generoInicial) {
 		this.generoInicial = generoInicial;
 		this.generoActual=generoInicial.getGenero();
-		this.peso = peso;
 		this.caminoActual = new ArrayList<>();
 	}
 	public void setCiclo() {
@@ -52,20 +50,12 @@ public class Estado {
 		this.generoInicial = generoInicial;
 	}
 
-	public int getPeso() {
-		return peso;
-	}
-
-	public void incrementarPeso(int peso) {
-		this.peso=this.peso+ peso;
-	}
-	public void decrementarPeso(int peso) {
-		this.peso=this.peso- peso;
-	}
-	
 	public String getUltimoGenero() {
 		return this.caminoActual.get(this.caminoActual.size()).getVerticeDestino().getGenero();
-	}
+	}	
 	
+	public int getSize() {
+		return this.caminoActual.size();
+	}
 	
 }

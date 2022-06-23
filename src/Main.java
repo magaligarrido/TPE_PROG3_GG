@@ -24,10 +24,23 @@ public class Main {
 
 	}
 
-	public static void ciclo(String generoBuscar, GrafoDirigido<Genero> grafo) {
-		GrafoDirigido<Genero> grafoCiclo = new GrafoDirigido<>();
-		ArrayList<Genero>ggrafoCiclo= grafo.obtenerCiclo(generoBuscar,"asd");
-
+	public static void buscarCiclo(String generoBuscar, GrafoDirigido<Genero> grafo) {
+		ArrayList<Genero>cicloGeneros= grafo.obtenerCiclo(generoBuscar);
+		System.out.println("Ciclo encontrado a partir del genero "+generoBuscar + "/n");
+		for (Genero genero : cicloGeneros) {
+			System.out.println(genero.getGenero());
+		}
+	}
+	
+	public static void buscarCaminoMasLargo(String generoBuscar, GrafoDirigido<Genero> grafo) {
+		if (grafo.contieneVertice(generoBuscar)) {
+			BackTracking backtracking = new BackTracking();
+			Solucion sol = backtracking.back(grafo.getGenero(generoBuscar), grafo);
+			System.out.println("La mejor solucion: " + sol);
+		} else {
+			System.out.println("El genero ingresado no existe :( ");
+		}
+		
 	}
 
 	public static void buscarMayorRepeticion(String generoBuscar, GrafoDirigido<Genero> grafo) {
@@ -103,17 +116,6 @@ public class Main {
 	public static void menuParteDos(GrafoDirigido<Genero> grafoGeneros) {
 		lecturaGeneros(grafoGeneros);
 
-		/*
-		 * Iterator<Genero> it = grafoGeneros.obtenerVertices(); int sizeVertices = 0;
-		 * while (it.hasNext()) { System.out.println(it.next().toString());
-		 * sizeVertices++; } System.out.println(sizeVertices);
-		 */
-		/*
-		 * Iterator<Arco<Integer>> itArco = grafoGeneros.obtenerArcos(); int sizeArcos =
-		 * 0; while (itArco.hasNext()) { System.out.println(itArco.next().toString());
-		 * sizeArcos++; } System.out.println(sizeArcos);
-		 */
-
 		System.out.println("Ingrese genero a buscar");
 		String entradaTeclado = "";
 		Scanner entradaEscaner = new Scanner(System.in); // Creación de un objeto Scanner
@@ -132,22 +134,20 @@ public class Main {
 		switch (indice) {
 		case 1: {
 			buscarMayorRepeticion(generoBuscar, grafoGeneros);
-
+			break;
 		}
 		case 2: {
-			// posibilidad 1: en la carga del arbol ir guardando los niveles q posee el
-			// arbol
-			// al momento de consultar por un genero sabriamos que desde el nivel en el que
-			// esta el camino mas largo posible va a ser esa diferencia
-			// nivel maximo-nivel inicio
-			// para esto tendriamos que cambiar que nodoizq y nododer contengan su
-			// profundidad maximo
-
-			// posibilidad 2:
-
+			
+			buscarCaminoMasLargo(generoBuscar, grafoGeneros);
+			break;
 		}
 		case 3: {
-			ciclo(generoBuscar, grafoGeneros);
+			buscarCiclo(generoBuscar, grafoGeneros);
+			break;
+		}
+		
+		default : {
+			throw new IllegalArgumentException("Unexpected value: " + indice);
 		}
 		}/*
 			 * // inciso 2
@@ -272,9 +272,7 @@ public class Main {
 						} else {
 							genero = grafoGeneros.getGenero(generoActual);
 						}
-						// FIXME
-						// TODO
-						// ASD
+					
 						if (filaGeneros.length > (i + 1)) {
 							Genero generoSiguiente=null;
 							String siguiente = filaGeneros[i + 1];

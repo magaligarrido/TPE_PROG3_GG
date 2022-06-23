@@ -5,40 +5,30 @@ public class BackTracking {
 
 	public Solucion back(Genero inicial, GrafoDirigido<Genero> grafo) {
 		this.mejorSolucion = null;
-		int peso = 0;
-		Estado estado = new Estado(inicial, peso);
+		Estado estado = new Estado(inicial);
 		this.back(grafo, estado);
-		System.out.println(estado.getCiclos());
 		return this.mejorSolucion;
-
 	}
 
 	private void back(GrafoDirigido<Genero> grafo, Estado estado) {
+	
 		if (!grafo.getGenero(estado.getGeneroActual()).tieneAdyacentes()) {
-			System.out.println(estado.getPeso());
-
-			if (this.mejorSolucion == null || estado.getPeso() > this.mejorSolucion.getPeso()) {
-				this.mejorSolucion = new Solucion(estado.getCamino(), estado.getPeso());
+			if (this.mejorSolucion == null || estado.getSize() > this.mejorSolucion.getSize()) {
+				this.mejorSolucion = new Solucion(estado.getCamino());
 				System.out.println(this.mejorSolucion);
-
 			}
 
-			// if(mejorsolucin.peso>estadocaminopeso
 		} else {
 			ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());
-			for (Arco<Integer> arco : adyacentes) {
-
-				if (!estado.contieneArcoEnCamino(arco)// PODA IMPLICITA
-						&& arco.getVerticeOrigen().getGenero() != estado.getGeneroInicial().getGenero()
-						&& estado.getCiclos() < 10000000) {
-					estado.setCiclo();
-					estado.incrementarPeso(arco.getContador());
+		
+			for (Arco<Integer> arco : adyacentes) {				
+				if (!estado.contieneArcoEnCamino(arco)) {
 					estado.agregarAlCamino(arco);
+				
 					estado.setGeneroActual(arco.getVerticeDestino().getGenero());
 
 					back(grafo, estado);
 
-					estado.decrementarPeso(arco.getContador());
 					estado.quitarUltimo();
 					estado.setGeneroActual(arco.getVerticeOrigen().getGenero());
 

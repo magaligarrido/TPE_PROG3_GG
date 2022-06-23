@@ -66,9 +66,11 @@ public class Genero {
 		mergeSort.sort(arrPeso, arrDestinos);
 
 		for (int i = 0; i < arrDestinos.length; i++) {
-			Arco<Integer> arco = new Arco<>(this, arrDestinos[i], arrPeso[i]);
-			salida.add(arco);
-
+			for (Arco<Integer> arco : this.arcos) {
+				if (arco.getVerticeDestino().equals(arrDestinos[i])) {
+				salida.add(arco);
+				}
+			}
 		}
 
 		return salida;
@@ -76,7 +78,7 @@ public class Genero {
 
 	public void aumentarContador(String generoDestino) {
 		for (Arco<Integer> arco : arcos) {
-			if (arco.getVerticeDestino().equals(generoDestino)) {
+			if (arco.getVerticeDestino().getGenero().equals(generoDestino)) {
 				arco.incrementarContador();
 			}
 		}
@@ -85,7 +87,7 @@ public class Genero {
 
 	public boolean existeArco(String generoDestino) {
 		for (Arco<Integer> arco : arcos) {
-			if (arco.getVerticeDestino().equals(generoDestino)) {
+			if (arco.getVerticeDestino().getGenero().equals(generoDestino)) {
 				return true;
 			}
 		}
@@ -142,5 +144,7 @@ public class Genero {
 			return false;
 		}
 	}
+
+	
 
 }
