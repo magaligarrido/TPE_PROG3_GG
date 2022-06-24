@@ -256,7 +256,7 @@ public class Main {
 
 		long startime = System.currentTimeMillis();
 
-		String csvFile = "./datasetsGeneros/dataset4.csv";
+		String csvFile = "./datasetsGeneros/dataset2.csv";
 		String line = "";
 		String cvsSplitBy = ",";
 

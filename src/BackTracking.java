@@ -22,14 +22,15 @@ public class BackTracking {
 			ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());
 		
 			for (Arco<Integer> arco : adyacentes) {				
-				if (!estado.contieneArcoEnCamino(arco)) {
+				if (!estado.contieneArcoEnCamino(arco)&& arco.getVerticeDestino()!=estado.getGeneroInicial()) {
 					estado.agregarAlCamino(arco);
-				
+					//estado.marcarVisitado(arco.getVerticeDestino());
 					estado.setGeneroActual(arco.getVerticeDestino().getGenero());
 
 					back(grafo, estado);
 
 					estado.quitarUltimo();
+					//estado.quitarVisita(arco.getVerticeDestino());
 					estado.setGeneroActual(arco.getVerticeOrigen().getGenero());
 
 				}

@@ -81,7 +81,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public ArrayList<Arco<Integer>> obtenerAdyacentes(String genero) {
-		if(!this.getGenero(genero).getArcos().isEmpty()) {
+		if(this.getGenero(genero).getArcos()!=null) {
 			ArrayList<Arco<Integer>>salida= this.getGenero(genero).getArcos();
 			return salida;
 		}
