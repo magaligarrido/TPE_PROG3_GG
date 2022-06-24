@@ -44,7 +44,7 @@ public class Coleccion {
 		for (Genero genero : colecciones) {
 			if(genero.getGenero().equals(g)) {
 				salida = new Genero(g);
-				for (Libro l : genero.copiaLibros()) {
+				for (Libro l : genero.getLibros()) {
 					salida.addLibro(l);
 				}
 				return salida;
@@ -73,7 +73,7 @@ public class Coleccion {
 	public ArrayList<Libro> getLibrosPorGenero(String genero){
 		for (Genero g : colecciones) {
 			if( g.getGenero().equals(genero)) {
-				return g.copiaLibros();
+				return g.getLibros();
 			}
 		}
 	return null;

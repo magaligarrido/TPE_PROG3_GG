@@ -25,11 +25,17 @@ public class Main {
 	}
 
 	public static void buscarCiclo(String generoBuscar, GrafoDirigido<Genero> grafo) {
-		ArrayList<Genero>cicloGeneros= grafo.obtenerCiclo(generoBuscar);
-		System.out.println("Ciclo encontrado a partir del genero "+generoBuscar + "/n");
+		DFS dfs = new DFS(grafo,generoBuscar);
+		ArrayList<Genero>cicloGeneros= dfs.encontrarCamino();
+		System.out.println("Ciclo encontrado a partir del genero "+generoBuscar + "\n");
+		String salida = "";
 		for (Genero genero : cicloGeneros) {
-			System.out.println(genero.getGenero());
+			if(salida.equals("")) {
+				salida+=genero.getGenero();
+			}else
+				salida+=" -> "+ genero.getGenero();
 		}
+		System.out.println(salida);
 	}
 	
 	public static void buscarCaminoMasLargo(String generoBuscar, GrafoDirigido<Genero> grafo) {

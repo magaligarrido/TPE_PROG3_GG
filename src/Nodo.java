@@ -2,13 +2,22 @@
 public class Nodo {
 	private Genero genero;
 	private Nodo hijoIzq, hijoDer;
+	private int profundidad;
 
 	public Nodo(Genero genero) {
 		this.genero = genero;
 		this.hijoIzq = null;
 		this.hijoDer = null;
+		this.profundidad = 0;
 	}
 
+	public int getProfundidad() {
+		return this.profundidad;
+	}
+
+	public void setProfundidad(int prof) {
+		this.profundidad = prof;
+	}
 
 	public Genero getGenero() {
 		return genero;
@@ -59,7 +68,7 @@ public class Nodo {
 				return this.hijoDer.existeGenero(genero);
 			}
 		}
-	
+
 		return false;
 	}
 
@@ -102,24 +111,29 @@ public class Nodo {
 	 * 
 	 * } FIXME NO TAN NECESARIO CONTINUAR BORRADO
 	 */
-
-	public void addNodo(Nodo nodo) {
+	private void addNodo(Nodo nodo) {
 		int val = nodo.getGenero().getGenero().compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
-																					// para q retorne solo un string
+		// para q retorne solo un string
 		if (val < 0) {
+
 			if (this.hijoIzq != null) {
 				this.hijoIzq.addNodo(nodo);
+				this.setProfundidad(this.getHijoIzq().getProfundidad()+1);
 			} else {
 				this.hijoIzq = nodo;
 			}
 		} else if (val > 0) {
+
 			if (this.hijoDer != null) {
 				this.hijoDer.addNodo(nodo);
+				this.setProfundidad(this.getHijoDer().getProfundidad()+1);
+
 			} else {
 				this.hijoDer = nodo;
 			}
 		}
-	}
+	}//profundidad de mas
+
 
 	public void addGenero(Genero genero) {
 		int val = genero.getGenero().compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
