@@ -63,6 +63,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public int cantidadVertices() {
+		return this.indicesGeneros.size();
+	}
 
 	public Genero getGenero(String genero) {
 		return indicesGeneros.get(genero);	

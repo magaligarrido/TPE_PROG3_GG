@@ -44,7 +44,6 @@ public class Estado {
 		this.generoActual=arco.getVerticeDestino().getGenero();
 	}
 	public boolean contieneArcoEnCamino(Arco<Integer> arco) {
-		System.out.println(this.caminoActual.size());
 		return this.caminoActual.contains(arco);
 	}
 	public void quitarUltimo() {
