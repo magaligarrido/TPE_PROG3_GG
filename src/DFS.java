@@ -39,6 +39,6 @@ public class DFS {
 			}
 		}
 		colores.put(verticeActual, "negro");
-		return salida;
+z		return salida;
 	}
 }

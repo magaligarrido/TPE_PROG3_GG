@@ -12,35 +12,38 @@ public class BackTracking {
 	}
 
 	private void back(GrafoDirigido<Genero> grafo, Estado estado) {
-	
-		if (!grafo.getGenero(estado.getGeneroActual()).tieneAdyacentes()||
-				estado.getCamino().size()== grafo.cantidadVertices()-1) {
-			if (this.mejorSolucion == null || estado.getSize() > this.mejorSolucion.getSize()) {
-				this.mejorSolucion = new Solucion(estado.getCamino());
-				System.out.println(this.mejorSolucion);
-				return;
-			}
 
-		} else {
-			ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());
-		
-			for (Arco<Integer> arco : adyacentes) {		//!estado.contieneArcoEnCamino(arco)&&		
-				if (!estado.isVisitado(arco.getVerticeDestino().getGenero())&& 
-							arco.getVerticeDestino()!=estado.getGeneroInicial()) {
-					estado.agregarAlCamino(arco);
-					estado.marcarVisitado(arco.getVerticeDestino());
-					estado.setGeneroActual(arco.getVerticeDestino().getGenero());
+		if (this.mejorSolucion ==null || 
+				this.mejorSolucion.getSize() < grafo.cantidadVertices() - 1) {
 
-					back(grafo, estado);
+			if (!grafo.getGenero(estado.getGeneroActual()).tieneAdyacentes()
+					|| estado.getCamino().size() == grafo.cantidadVertices() - 1) {
+				if (this.mejorSolucion == null || estado.getSize() > this.mejorSolucion.getSize()) {
+					this.mejorSolucion = new Solucion(estado.getCamino());
+					System.out.println(this.mejorSolucion);
+					return;
+				}
 
-					estado.quitarUltimo();
-					estado.quitarVisita(arco.getVerticeDestino());
-					estado.setGeneroActual(arco.getVerticeOrigen().getGenero());
+			} else {
+				ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());
 
+				for (Arco<Integer> arco : adyacentes) { // !estado.contieneArcoEnCamino(arco)&&
+					if (!estado.isVisitado(arco.getVerticeDestino().getGenero())
+							&& arco.getVerticeDestino() != estado.getGeneroInicial()) {
+						estado.agregarAlCamino(arco);
+						estado.marcarVisitado(arco.getVerticeDestino());
+						estado.setGeneroActual(arco.getVerticeDestino().getGenero());
+
+						back(grafo, estado);
+
+						estado.quitarUltimo();
+						estado.quitarVisita(arco.getVerticeDestino());
+						estado.setGeneroActual(arco.getVerticeOrigen().getGenero());
+
+					}
 				}
 			}
+
 		}
-
 	}
-
 }
