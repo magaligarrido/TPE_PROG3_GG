@@ -4,10 +4,9 @@ import java.util.Iterator;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 	private HashMap<String, Genero> indicesGeneros;
-	
-	
+
 	public void agregarVertice(String key, Genero genero) {
-		if(indicesGeneros == null) {    //Revisar esto
+		if (indicesGeneros == null) { // Revisar esto
 			this.indicesGeneros = new HashMap<>();
 		}
 		this.indicesGeneros.put(key, genero);
@@ -16,19 +15,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public void borrarVertice(int verticeId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void agregarArco(Genero origen, Genero destino, int contador) {
 		Arco<Integer> a = new Arco<Integer>(origen, destino, contador);
-		this.indicesGeneros.get(origen.getGenero()).addArco(a);		
+		this.indicesGeneros.get(origen.getGenero()).addArco(a);
 	}
 
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -36,9 +35,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public boolean contieneVertice(String verticeNombre) {
-		if(this.indicesGeneros != null) {
+		if (this.indicesGeneros != null) {
 			return this.indicesGeneros.containsKey(verticeNombre);
 		}
 		return false;
@@ -52,7 +51,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public void incrementarArco(String origen, String destino) {
 		indicesGeneros.get(origen).aumentarContador(destino);
 	}
-	
+
 	@Override
 	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
 		return null;
@@ -63,14 +62,15 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	public int cantidadVertices() {
 		return this.indicesGeneros.size();
 	}
 
 	public Genero getGenero(String genero) {
-		return indicesGeneros.get(genero);	
+		return indicesGeneros.get(genero);
 	}
-	
+
 	@Override
 	public Iterator<Genero> obtenerVertices() {
 		ArrayList<Genero> salida = new ArrayList<>();
@@ -80,12 +80,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		Iterator<Genero> iterator = (salida.iterator());
 		return iterator;
 	}
-	
 
 	@Override
 	public ArrayList<Arco<Integer>> obtenerAdyacentes(String genero) {
-		if(this.getGenero(genero).getArcos()!=null) {
-			ArrayList<Arco<Integer>>salida= this.getGenero(genero).getArcos();
+		if (this.getGenero(genero).getArcos() != null) {
+			ArrayList<Arco<Integer>> salida = this.getGenero(genero).getArcos();
 			return salida;
 		}
 		return null;
@@ -94,9 +93,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public Iterator<Arco<Integer>> obtenerArcos() {
 		ArrayList<Arco<Integer>> salida = new ArrayList<>();
-		for (Genero g: indicesGeneros.values()) {
-				salida.addAll(g.getArcos());
-			}	
+		for (Genero g : indicesGeneros.values()) {
+			salida.addAll(g.getArcos());
+		}
 		Iterator<Arco<Integer>> iterator = salida.iterator();
 		return iterator;
 	}
@@ -106,22 +105,22 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	/*public ArrayList<Genero> obtenerCiclo(String genero){
-		ArrayList<Genero> generos = new ArrayList<>();
 
-		Genero generoInicial =this.indicesGeneros.get(genero);
-
-		ArrayList<Arco<Integer>> arcos = generoInicial.getArcos();
-		for (Arco<Integer> arco : arcos) {
-			if(!arco.getVerticeDestino().equals(generoInicial.getGenero()))
-				generos.addAll(obtenerCiclo(primero,ultimo));
-		}
-				
-		return generos;
-		
-		
-	}*/
-	
+	/*
+	 * public ArrayList<Genero> obtenerCiclo(String genero){ ArrayList<Genero>
+	 * generos = new ArrayList<>();
+	 * 
+	 * Genero generoInicial =this.indicesGeneros.get(genero);
+	 * 
+	 * ArrayList<Arco<Integer>> arcos = generoInicial.getArcos(); for (Arco<Integer>
+	 * arco : arcos) {
+	 * if(!arco.getVerticeDestino().equals(generoInicial.getGenero()))
+	 * generos.addAll(obtenerCiclo(primero,ultimo)); }
+	 * 
+	 * return generos;
+	 * 
+	 * 
+	 * }
+	 */
 
 }

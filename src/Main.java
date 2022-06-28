@@ -25,28 +25,28 @@ public class Main {
 	}
 
 	public static void buscarCiclo(String generoBuscar, GrafoDirigido<Genero> grafo) {
-		DFS dfs = new DFS(grafo,generoBuscar);
-		ArrayList<Genero>cicloGeneros= dfs.encontrarCamino();
-		System.out.println("Ciclo encontrado a partir del genero "+generoBuscar + "\n");
+		DFS dfs = new DFS(grafo, generoBuscar);
+		ArrayList<Genero> cicloGeneros = dfs.encontrarCamino();
+		System.out.println("Ciclo encontrado a partir del genero " + generoBuscar + "\n");
 		String salida = "";
 		for (Genero genero : cicloGeneros) {
-			if(salida.equals("")) {
-				salida+=genero.getGenero();
-			}else
-				salida+=" -> "+ genero.getGenero();
+			if (salida.equals("")) {
+				salida += genero.getGenero();
+			} else
+				salida += " -> " + genero.getGenero();
 		}
 		System.out.println(salida);
 	}
-	
+
 	public static void buscarCaminoMasLargo(String generoBuscar, GrafoDirigido<Genero> grafo) {
 		if (grafo.contieneVertice(generoBuscar)) {
 			BackTracking backtracking = new BackTracking();
 			Solucion sol = backtracking.back(grafo.getGenero(generoBuscar), grafo);
-			System.out.println("La mejor solucion: " + sol);
+			System.out.println("La mejor solucion encontrada: " + sol);
 		} else {
 			System.out.println("El genero ingresado no existe :( ");
 		}
-		
+
 	}
 
 	public static void buscarMayorRepeticion(String generoBuscar, GrafoDirigido<Genero> grafo) {
@@ -110,7 +110,7 @@ public class Main {
 					coleccionLibros.getRoot().getNodo(generoBuscado).getGenero().getLibros());
 
 			for (Libro libro : generoFiltrado) {
-				System.out.println(libro.getAutor());
+				System.out.println(libro.getTitulo());
 			}
 			escrituraLibros(generoFiltrado);
 		} else {
@@ -143,7 +143,7 @@ public class Main {
 			break;
 		}
 		case 2: {
-			
+
 			buscarCaminoMasLargo(generoBuscar, grafoGeneros);
 			break;
 		}
@@ -151,8 +151,8 @@ public class Main {
 			buscarCiclo(generoBuscar, grafoGeneros);
 			break;
 		}
-		
-		default : {
+
+		default: {
 			throw new IllegalArgumentException("Unexpected value: " + indice);
 		}
 		}/*
@@ -278,14 +278,14 @@ public class Main {
 						} else {
 							genero = grafoGeneros.getGenero(generoActual);
 						}
-					
+
 						if (filaGeneros.length > (i + 1)) {
-							Genero generoSiguiente=null;
+							Genero generoSiguiente = null;
 							String siguiente = filaGeneros[i + 1];
 							if (!grafoGeneros.contieneVertice(siguiente)) {
 								generoSiguiente = new Genero(siguiente);
 								grafoGeneros.agregarVertice(siguiente, generoSiguiente);
-							}else {
+							} else {
 								generoSiguiente = grafoGeneros.getGenero(siguiente);
 							}
 

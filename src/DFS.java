@@ -33,12 +33,12 @@ public class DFS {
 				salida.addAll(encontrarCaminoVisit(verticeAdyacente));
 				salida.add(this.grafo.getGenero(verticeActual));
 				return salida;
-			}else if(colores.get(verticeAdyacente).equals("amarillo")&& (verticeAdyacente.equals(this.origen))) {
-				 salida.add(this.grafo.getGenero(verticeAdyacente));
-				 return salida;
+			} else if (colores.get(verticeAdyacente).equals("amarillo") && (verticeAdyacente.equals(this.origen))) {
+				salida.add(this.grafo.getGenero(verticeAdyacente));
+				return salida;
 			}
 		}
 		colores.put(verticeActual, "negro");
-z		return salida;
+		return salida;
 	}
 }

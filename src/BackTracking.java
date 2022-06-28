@@ -13,16 +13,12 @@ public class BackTracking {
 
 	private void back(GrafoDirigido<Genero> grafo, Estado estado) {
 
-		if (this.mejorSolucion ==null || 
-				this.mejorSolucion.getSize() < grafo.cantidadVertices() - 1) {
+		if (this.mejorSolucion == null || this.mejorSolucion.getSize() < grafo.cantidadVertices() - 1) {
 
 			if (!grafo.getGenero(estado.getGeneroActual()).tieneAdyacentes()
 					|| estado.getCamino().size() == grafo.cantidadVertices() - 1) {
-				if (this.mejorSolucion == null || estado.getSize() > this.mejorSolucion.getSize()) {
-					this.mejorSolucion = new Solucion(estado.getCamino());
-					System.out.println(this.mejorSolucion);
-					return;
-				}
+
+				this.mejorSolucion = new Solucion(estado.getCamino());
 
 			} else {
 				ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());

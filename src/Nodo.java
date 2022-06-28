@@ -96,29 +96,13 @@ public class Nodo {
 		return salida;
 	}
 
-	/*
-	 * public void deleteNodo(Nodo nodo) { if (this.genero.getGenero() ==
-	 * nodo.getGenero().getGenero()) { if (this.esHoja()) { // borrar vinculo con
-	 * padre } else {
-	 * 
-	 * } } else if (genero.getGenero() < this.genero.getGenero()) { if (this.hijoIzq
-	 * != null) this.hijoIzq.deleteNodo(nodo); } else if (genero.getGenero() >
-	 * this.genero.getGenero()) { if (this.hijoDer != null)
-	 * this.hijoDer.deleteNodo(nodo); } else return;// caso que no lo encuentre
-	 * retorno sin hacer nada // si pregunto desde afuera si existe primero,en el
-	 * caso de que exista estaria // recorriendo 2 veces el arbol // de esta manera
-	 * en el peor de los caso que seria que no lo encuentre no hago // nada
-	 * 
-	 * } FIXME NO TAN NECESARIO CONTINUAR BORRADO
-	 */
 	private void addNodo(Nodo nodo) {
-		int val = nodo.getGenero().getGenero().compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
-		// para q retorne solo un string
+		int val = nodo.getGenero().getGenero().compareTo(this.genero.getGenero());
 		if (val < 0) {
 
 			if (this.hijoIzq != null) {
 				this.hijoIzq.addNodo(nodo);
-				this.setProfundidad(this.getHijoIzq().getProfundidad()+1);
+				this.setProfundidad(this.getHijoIzq().getProfundidad() + 1);
 			} else {
 				this.hijoIzq = nodo;
 			}
@@ -126,18 +110,17 @@ public class Nodo {
 
 			if (this.hijoDer != null) {
 				this.hijoDer.addNodo(nodo);
-				this.setProfundidad(this.getHijoDer().getProfundidad()+1);
+				this.setProfundidad(this.getHijoDer().getProfundidad() + 1);
 
 			} else {
 				this.hijoDer = nodo;
 			}
 		}
-	}//profundidad de mas
-
+	}
 
 	public void addGenero(Genero genero) {
-		int val = genero.getGenero().compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
-																		// para q retorne solo un string
+		int val = genero.getGenero().compareTo(this.genero.getGenero());
+
 		if (val < 0) {
 			if (this.hijoIzq != null) {
 				this.hijoIzq.addGenero(genero);
@@ -156,8 +139,7 @@ public class Nodo {
 	}
 
 	public Nodo getNodo(Genero genero) {
-		int val = genero.getGenero().compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
-		// para q retorne solo un string
+		int val = genero.getGenero().compareTo(this.genero.getGenero());
 		if (val == 0) {
 			return this;
 		} else if (val < 0) {
@@ -175,8 +157,7 @@ public class Nodo {
 
 	public Nodo getNodo(String genero) {
 
-		int val = genero.compareTo(this.genero.getGenero());// ver de cambiar getGenero de nodo
-		// para q retorne solo un string
+		int val = genero.compareTo(this.genero.getGenero());
 		if (val == 0) {
 			return this;
 		} else if (val < 0) {

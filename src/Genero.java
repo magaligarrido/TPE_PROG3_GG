@@ -31,9 +31,8 @@ public class Genero {
 
 	public void addLibro(Libro l) {
 
-		
-			this.libros.add(l);
-		
+		this.libros.add(l);
+
 	}
 
 	public void addArco(Arco<Integer> arco) {
@@ -68,7 +67,7 @@ public class Genero {
 		for (int i = 0; i < arrDestinos.length; i++) {
 			for (Arco<Integer> arco : this.arcos) {
 				if (arco.getVerticeDestino().equals(arrDestinos[i])) {
-				salida.add(arco);
+					salida.add(arco);
 				}
 			}
 		}
@@ -144,7 +143,5 @@ public class Genero {
 			return false;
 		}
 	}
-
-	
 
 }

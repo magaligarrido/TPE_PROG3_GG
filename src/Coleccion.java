@@ -7,33 +7,35 @@ public class Coleccion {
 	public Coleccion(Nodo nodo) {
 		super();
 		this.colecciones = new ArrayList<>();
-		this.root= nodo;
+		this.root = nodo;
 	}
+
 	public Nodo getRoot() {
 		return this.root;
 	}
+
 	public void setroot(Nodo root) {
-		this.root=root;
+		this.root = root;
 	}
-	
+
 	public void addColeccion(Genero g) {
-		if(!colecciones.contains(g)) {
+		if (!colecciones.contains(g)) {
 			this.colecciones.add(g);
 		}
 	}
-	
+
 	public boolean contieneGenero(String g) {
 		for (Genero genero : colecciones) {
-			if(g.equals(genero.getGenero())) {
+			if (g.equals(genero.getGenero())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public void addLibroPorGenero(String g, Libro l) {
 		for (Genero genero : colecciones) {
-			if(genero.getGenero().equals(g)) {
+			if (genero.getGenero().equals(g)) {
 				genero.addLibro(l);
 			}
 		}
@@ -42,7 +44,7 @@ public class Coleccion {
 	public Genero getGenero(String g) {
 		Genero salida;
 		for (Genero genero : colecciones) {
-			if(genero.getGenero().equals(g)) {
+			if (genero.getGenero().equals(g)) {
 				salida = new Genero(g);
 				for (Libro l : genero.getLibros()) {
 					salida.addLibro(l);
@@ -52,30 +54,30 @@ public class Coleccion {
 		}
 		return null;
 	}
-	public ArrayList<Genero> getGeneros(){
+
+	public ArrayList<Genero> getGeneros() {
 		ArrayList<Genero> salida = new ArrayList<>();
 		for (Genero genero : colecciones) {
 			salida.add(genero);
 		}
 		return salida;
 	}
-	
-	
+
 	public void deleteColeccionPorGenero(Genero g) {
-		if(!this.colecciones.isEmpty()) {
-			if(colecciones.contains(g)) {
+		if (!this.colecciones.isEmpty()) {
+			if (colecciones.contains(g)) {
 				this.colecciones.remove(g);
 			}
 		}
 	}
-	
-	//No se si estara bien jajaja no encuentro fallas en mi logica
-	public ArrayList<Libro> getLibrosPorGenero(String genero){
+
+	// No se si estara bien jajaja no encuentro fallas en mi logica
+	public ArrayList<Libro> getLibrosPorGenero(String genero) {
 		for (Genero g : colecciones) {
-			if( g.getGenero().equals(genero)) {
+			if (g.getGenero().equals(genero)) {
 				return g.getLibros();
 			}
 		}
-	return null;
+		return null;
 	}
 }
