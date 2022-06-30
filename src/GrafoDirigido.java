@@ -27,13 +27,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean contieneVertice(int verticeId) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public boolean contieneVertice(String verticeNombre) {
@@ -48,12 +41,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return this.indicesGeneros.get(origen).existeArco(destino);
 	}
 
-	public void incrementarArco(String origen, String destino) {
-		indicesGeneros.get(origen).aumentarContador(destino);
-	}
-
 	@Override
-	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
+	public Arco<T> obtenerArco(String origen, String destino) {
 		return null;
 	}
 
@@ -61,14 +50,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public int cantidadArcos() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	public int cantidadVertices() {
-		return this.indicesGeneros.size();
-	}
-
-	public Genero getGenero(String genero) {
-		return indicesGeneros.get(genero);
 	}
 
 	@Override
@@ -99,28 +80,17 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		Iterator<Arco<Integer>> iterator = salida.iterator();
 		return iterator;
 	}
-
-	@Override
-	public Iterator<Arco<T>> obtenerArcos(String genero) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public int cantidadVertices() {
+		return this.indicesGeneros.size();
 	}
-
-	/*
-	 * public ArrayList<Genero> obtenerCiclo(String genero){ ArrayList<Genero>
-	 * generos = new ArrayList<>();
-	 * 
-	 * Genero generoInicial =this.indicesGeneros.get(genero);
-	 * 
-	 * ArrayList<Arco<Integer>> arcos = generoInicial.getArcos(); for (Arco<Integer>
-	 * arco : arcos) {
-	 * if(!arco.getVerticeDestino().equals(generoInicial.getGenero()))
-	 * generos.addAll(obtenerCiclo(primero,ultimo)); }
-	 * 
-	 * return generos;
-	 * 
-	 * 
-	 * }
-	 */
-
+	
+	public Genero getGenero(String genero) {
+		return indicesGeneros.get(genero);
+	}
+	
+	public void incrementarArco(String origen, String destino) {
+		indicesGeneros.get(origen).aumentarContador(destino);
+		//DELEGARLA A CLASE ARCO
+	}
 }

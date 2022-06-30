@@ -22,9 +22,7 @@ public class Arco<T> {
 	}
 
 	public void incrementarContador() {
-
 		this.contador++;
-
 	}
 
 	public boolean equals(Object o) {
@@ -37,7 +35,9 @@ public class Arco<T> {
 	}
 
 	public String toString() {
-		return (this.getVerticeOrigen() + " --> " + this.getVerticeDestino() + " -- cantidad de repeticiones: "
+		return (this.getVerticeOrigen() +
+				" --> " + this.getVerticeDestino() +
+				" -- cantidad de repeticiones: "
 				+ contador);
 	}
 }

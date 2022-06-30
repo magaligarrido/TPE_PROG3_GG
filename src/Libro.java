@@ -12,8 +12,6 @@ public class Libro {
 		this.cant_paginas = cant_paginas;
 		this.generos = new ArrayList<>();
 	}
-	
-
 
 	public String getTitulo() {
 		return titulo;
@@ -34,7 +32,7 @@ public class Libro {
 	public int getCant_paginas() {
 		return cant_paginas;
 	}
-
+	
 	public void setCant_paginas(int cant_paginas) {
 		this.cant_paginas = cant_paginas;
 	}

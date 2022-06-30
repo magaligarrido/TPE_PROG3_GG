@@ -13,40 +13,41 @@ public class Main {
 	public static void main(String[] args) {
 		Nodo raiz = null;
 		Coleccion coleccionLibros = new Coleccion(raiz);
-
 		GrafoDirigido<Genero> grafoGeneros = new GrafoDirigido<>();
 
-		// crearColeccionLibros(coleccionLibros);
 		crearColeccionLibros(coleccionLibros);
-
-		// menu(coleccionLibros, grafoGeneros);
 		menu(coleccionLibros, grafoGeneros);
-
 	}
 
 	public static void buscarCiclo(String generoBuscar, GrafoDirigido<Genero> grafo) {
+		
 		DFS dfs = new DFS(grafo, generoBuscar);
 		ArrayList<Genero> cicloGeneros = dfs.encontrarCamino();
+		
 		System.out.println("Ciclo encontrado a partir del genero " + generoBuscar + "\n");
 		String salida = "";
+		
 		for (Genero genero : cicloGeneros) {
+			
 			if (salida.equals("")) {
 				salida += genero.getGenero();
-			} else
+			}else
 				salida += " -> " + genero.getGenero();
 		}
 		System.out.println(salida);
 	}
 
 	public static void buscarCaminoMasLargo(String generoBuscar, GrafoDirigido<Genero> grafo) {
+		
 		if (grafo.contieneVertice(generoBuscar)) {
+			
 			BackTracking backtracking = new BackTracking();
 			Solucion sol = backtracking.back(grafo.getGenero(generoBuscar), grafo);
-			System.out.println("La mejor solucion encontrada: " + sol);
+			
+			System.out.println("La mejor solucion encontrada: " + sol);			
 		} else {
 			System.out.println("El genero ingresado no existe :( ");
 		}
-
 	}
 
 	public static void buscarMayorRepeticion(String generoBuscar, GrafoDirigido<Genero> grafo) {
@@ -66,49 +67,46 @@ public class Main {
 	}
 
 	public static void menu(Coleccion coleccionLibros, GrafoDirigido<Genero> grafoGeneros) {
-		System.out.println("Elija una opcion \n" + "1-Buscar por genero \n" + "2-Estadisticas de busqueda");
+		
+		System.out.println(
+				"Elija una opcion \n" +
+		"1-Buscar por genero \n" + 
+		"2-Estadisticas de busqueda"
+		);
+		
 		String entradaTeclado = "";
 		Scanner entradaEscaner = new Scanner(System.in); // Creación de un objeto Scanner
 		entradaTeclado = entradaEscaner.nextLine(); // Invocamos un método sobre un objeto Scanner
-
 		int indice = Integer.parseInt(entradaTeclado);
-
+		
 		switch (indice) {
 		case 1: {
 			menuParteUno(coleccionLibros);
-
 			menu(coleccionLibros, grafoGeneros);
 			break;
 		}
 		case 2: {
 			menuParteDos(grafoGeneros);
-
 			menu(coleccionLibros, grafoGeneros);
 			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + indice);
 		}
-
-	}
-
-	public static void crearColeccionLibros(Coleccion coleccionLibros) {
-		lecturaLibros(coleccionLibros);
 	}
 
 	public static void menuParteUno(Coleccion coleccionLibros) {
-
 		System.out.println("ingrese Genero a filtrar");
 
 		String entradaTeclado = "";
 		Scanner entradaEscaner = new Scanner(System.in); // Creación de un objeto Scanner
 		entradaTeclado = entradaEscaner.nextLine(); // Invocamos un método sobre un objeto Scanner
-
 		String generoBuscado = entradaTeclado;
+		
 		if (coleccionLibros.getRoot().existeGenero(generoBuscado)) {
-			ArrayList<Libro> generoFiltrado = new ArrayList<>(
-					coleccionLibros.getRoot().getNodo(generoBuscado).getGenero().getLibros());
-
+			Nodo nodoGenero = coleccionLibros.getRoot().getNodo(generoBuscado);
+			ArrayList<Libro> generoFiltrado = new ArrayList<>(nodoGenero.getGenero().getLibros());
+			
 			for (Libro libro : generoFiltrado) {
 				System.out.println(libro.getTitulo());
 			}
@@ -116,7 +114,6 @@ public class Main {
 		} else {
 			System.out.println("No se encontro genero");
 		}
-
 	}
 
 	public static void menuParteDos(GrafoDirigido<Genero> grafoGeneros) {
@@ -128,44 +125,40 @@ public class Main {
 		entradaTeclado = entradaEscaner.nextLine(); // Invocamos un método sobre un objeto Scanner
 		String generoBuscar = entradaTeclado;
 
-		System.out.println("Elija una opcion \n" + "1-Obtener los N generos mas buscado luego de buscar por el genero "
-				+ generoBuscar + "\n" + "2-A partir del genero " + generoBuscar
-				+ " obtener la secuencia de generos que mas alto valor de busqueda posee \n"
-				+ "3-Obtener un grafo unicamente con los generos afines a " + generoBuscar);
+		System.out.println(
+				"Elija una opcion \n" + 
+		"1-Obtener los N generos mas buscado luego de buscar por el genero " + generoBuscar + "\n" +
+		"2-A partir del genero " + generoBuscar + " obtener la secuencia de generos que mas alto valor de busqueda posee \n" +
+		"3-Obtener un grafo unicamente con los generos afines a " + generoBuscar
+		);
+		
 		String indiceTeclado = "";
 		Scanner indiceEscaner = new Scanner(System.in); // Creación de un objeto Scanner
 		indiceTeclado = indiceEscaner.nextLine(); // Invocamos un método sobre un objeto Scanner
 
 		int indice = Integer.parseInt(indiceTeclado);
 		switch (indice) {
-		case 1: {
-			buscarMayorRepeticion(generoBuscar, grafoGeneros);
-			break;
+			case 1: {
+				buscarMayorRepeticion(generoBuscar, grafoGeneros);
+				break;
+			}
+			case 2: {
+				buscarCaminoMasLargo(generoBuscar, grafoGeneros);
+				break;
+			}
+			case 3: {
+				buscarCiclo(generoBuscar, grafoGeneros);
+				break;
+			}
+			default: {
+				throw new IllegalArgumentException("Unexpected value: " + indice);
+			}
 		}
-		case 2: {
 
-			buscarCaminoMasLargo(generoBuscar, grafoGeneros);
-			break;
-		}
-		case 3: {
-			buscarCiclo(generoBuscar, grafoGeneros);
-			break;
-		}
+	}
 
-		default: {
-			throw new IllegalArgumentException("Unexpected value: " + indice);
-		}
-		}/*
-			 * // inciso 2
-			 * 
-			 * if (grafoGeneros.contieneVertice(generoBuscar)) { Genero generoInicial =
-			 * grafoGeneros.getGenero(generoBuscar); BackTracking backtracking = new
-			 * BackTracking();
-			 * 
-			 * Solucion sol = backtracking.back(generoInicial, grafoGeneros);
-			 * System.out.println(sol); } System.out.println("salio");
-			 */
-
+	public static void crearColeccionLibros(Coleccion coleccionLibros) {
+		lecturaLibros(coleccionLibros);
 	}
 
 	public static void escrituraLibros(ArrayList<Libro> libros) {
@@ -181,10 +174,8 @@ public class Main {
 
 			for (Libro libro : libros) {
 				bw.write(libro.getTitulo());
-
 				bw.newLine();
 			}
-
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
@@ -205,7 +196,7 @@ public class Main {
 		String cvsSplitBy = ",";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-			// para saltar la primer linea
+			// SALTAMOS LA PRIMER LINEA QUE CONTIENE INFORMACION DE COLUMNAS
 			line = br.readLine();
 			line.split(cvsSplitBy);
 
@@ -215,13 +206,14 @@ public class Main {
 				if (items.length > 0) {
 					Libro libro = new Libro(items[0], items[1], Integer.parseInt(items[2]));
 					String[] generos = items[3].split(" ");
-					if (generos.length > 0) {
-						for (int j = 0; j < generos.length; j++) {
 
+					if (generos.length > 0) {
+
+						for (int j = 0; j < generos.length; j++) {
 							libro.addGenero(generos[j]);
 						}
-						for (int i = 0; i < generos.length; i++) {
 
+						for (int i = 0; i < generos.length; i++) {
 							String genero = generos[i];
 
 							if (coleccionLibros.getRoot() == null) {
@@ -232,28 +224,21 @@ public class Main {
 								Genero g = new Genero(genero);
 								g.addLibro(libro);
 								coleccionLibros.getRoot().addGenero(g);
-
 							} else {
 								coleccionLibros.getRoot().getNodo(genero).getGenero().addLibro(libro);
-
 							}
-
 						}
 					}
 				}
 			}
-
 			long endTime = System.currentTimeMillis() - startime;
 			System.out.println(Long.toString(endTime));
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void lecturaGeneros(GrafoDirigido<Genero> grafoGeneros) {
-
 		long startime = System.currentTimeMillis();
 
 		String csvFile = "./datasetsGeneros/dataset4.csv";
@@ -261,7 +246,7 @@ public class Main {
 		String cvsSplitBy = ",";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-			// para saltar la primer linea
+			// SALTAMOS LA PRIMER LINEA QUE CONTIENE INFORMACION DE COLUMNAS
 			line = br.readLine();
 			line.split(cvsSplitBy);
 
@@ -270,8 +255,10 @@ public class Main {
 
 				if (filaGeneros.length > 0) {
 					Genero genero = null;
+
 					for (int i = 0; i < filaGeneros.length; i++) {
 						String generoActual = filaGeneros[i];
+
 						if (!grafoGeneros.contieneVertice(generoActual)) {
 							genero = new Genero(generoActual);
 							grafoGeneros.agregarVertice(generoActual, genero);
@@ -282,6 +269,7 @@ public class Main {
 						if (filaGeneros.length > (i + 1)) {
 							Genero generoSiguiente = null;
 							String siguiente = filaGeneros[i + 1];
+
 							if (!grafoGeneros.contieneVertice(siguiente)) {
 								generoSiguiente = new Genero(siguiente);
 								grafoGeneros.agregarVertice(siguiente, generoSiguiente);
@@ -294,18 +282,15 @@ public class Main {
 								grafoGeneros.agregarArco(genero, generoSiguiente, contador);
 							}
 							grafoGeneros.incrementarArco(generoActual, siguiente);
-
 						}
 					}
 				}
 			}
-
 			long endTime = System.currentTimeMillis() - startime;
 			System.out.println("Tiempo de cargar genero en arbolBinario: " + Long.toString(endTime));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

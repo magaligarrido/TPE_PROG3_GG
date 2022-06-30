@@ -1,4 +1,3 @@
-
 public class Nodo {
 	private Genero genero;
 	private Nodo hijoIzq, hijoDer;
@@ -68,7 +67,6 @@ public class Nodo {
 				return this.hijoDer.existeGenero(genero);
 			}
 		}
-
 		return false;
 	}
 
@@ -96,7 +94,7 @@ public class Nodo {
 		return salida;
 	}
 
-	private void addNodo(Nodo nodo) {
+	public void addNodo(Nodo nodo) {
 		int val = nodo.getGenero().getGenero().compareTo(this.genero.getGenero());
 		if (val < 0) {
 
@@ -156,8 +154,8 @@ public class Nodo {
 	}
 
 	public Nodo getNodo(String genero) {
-
 		int val = genero.compareTo(this.genero.getGenero());
+		
 		if (val == 0) {
 			return this;
 		} else if (val < 0) {
@@ -170,6 +168,5 @@ public class Nodo {
 			}
 		}
 		return null;
-
 	}
 }

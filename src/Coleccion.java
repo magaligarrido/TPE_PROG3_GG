@@ -71,13 +71,14 @@ public class Coleccion {
 		}
 	}
 
-	// No se si estara bien jajaja no encuentro fallas en mi logica
 	public ArrayList<Libro> getLibrosPorGenero(String genero) {
+		ArrayList<Libro> salida = new ArrayList<>();
 		for (Genero g : colecciones) {
 			if (g.getGenero().equals(genero)) {
-				return g.getLibros();
+				salida = g.getLibros();
+				break;
 			}
 		}
-		return null;
+		return salida;
 	}
 }

@@ -15,6 +15,7 @@ public class DFS {
 
 	public ArrayList<Genero> encontrarCamino() {
 		Iterator<Genero> it = this.grafo.obtenerVertices();
+		
 		while (it.hasNext()) {
 			Genero genero = it.next();
 			colores.put(genero.getGenero(), "blanco");
@@ -25,10 +26,11 @@ public class DFS {
 	public ArrayList<Genero> encontrarCaminoVisit(String verticeActual) {
 		ArrayList<Genero> salida = new ArrayList<>();
 		colores.put(verticeActual, "amarillo");
-
 		ArrayList<Arco<Integer>> adyacentes = this.grafo.obtenerAdyacentes(verticeActual);
+		
 		for (Arco<Integer> arco : adyacentes) {
 			String verticeAdyacente = arco.getVerticeDestino().getGenero();
+			
 			if (colores.get(verticeAdyacente).equals("blanco")) {
 				salida.addAll(encontrarCaminoVisit(verticeAdyacente));
 				salida.add(this.grafo.getGenero(verticeActual));

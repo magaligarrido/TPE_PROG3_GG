@@ -1,7 +1,6 @@
 import java.util.Iterator;
 
 public class MergeSort {
-
 	private int[] arrPesos;
 	private Genero[] arrDestinos;
 	private int[] auxiliar;

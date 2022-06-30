@@ -4,10 +4,12 @@ public class BackTracking {
 	private Solucion mejorSolucion;
 
 	public Solucion back(Genero inicial, GrafoDirigido<Genero> grafo) {
-		this.mejorSolucion = null;
+		this.mejorSolucion = null;		
 		Estado estado = new Estado(inicial);
-		estado.marcarVisitado(inicial);
+		
+		estado.marcarVisitado(inicial);		
 		this.back(grafo, estado);
+		
 		return this.mejorSolucion;
 	}
 
@@ -23,7 +25,7 @@ public class BackTracking {
 			} else {
 				ArrayList<Arco<Integer>> adyacentes = grafo.obtenerAdyacentes(estado.getGeneroActual());
 
-				for (Arco<Integer> arco : adyacentes) { // !estado.contieneArcoEnCamino(arco)&&
+				for (Arco<Integer> arco : adyacentes) {
 					if (!estado.isVisitado(arco.getVerticeDestino().getGenero())
 							&& arco.getVerticeDestino() != estado.getGeneroInicial()) {
 						estado.agregarAlCamino(arco);
@@ -35,11 +37,9 @@ public class BackTracking {
 						estado.quitarUltimo();
 						estado.quitarVisita(arco.getVerticeDestino());
 						estado.setGeneroActual(arco.getVerticeOrigen().getGenero());
-
 					}
 				}
 			}
-
 		}
 	}
 }

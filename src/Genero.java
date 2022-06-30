@@ -30,9 +30,7 @@ public class Genero {
 	}
 
 	public void addLibro(Libro l) {
-
 		this.libros.add(l);
-
 	}
 
 	public void addArco(Arco<Integer> arco) {
@@ -44,17 +42,19 @@ public class Genero {
 		for (Arco<Integer> arco : arcos) {
 			salida.add(arco);
 		}
-
 		return salida;
 	}
 
 	public ArrayList<Arco<Integer>> getArcosOrdenadosPorPeso() {
+		
 		ArrayList<Arco<Integer>> salida = new ArrayList<>();
 		int[] arrPeso;
 		Genero[] arrDestinos;
+		
 		arrPeso = new int[this.arcos.size()];
 		arrDestinos = new Genero[this.arcos.size()];
 		int pos = 0;
+		
 		while (pos < this.arcos.size()) {
 			arrPeso[pos] = this.arcos.get(pos).getContador();
 			arrDestinos[pos] = this.arcos.get(pos).getVerticeDestino();
@@ -71,7 +71,6 @@ public class Genero {
 				}
 			}
 		}
-
 		return salida;
 	}
 
@@ -81,7 +80,6 @@ public class Genero {
 				arco.incrementarContador();
 			}
 		}
-
 	}
 
 	public boolean existeArco(String generoDestino) {
@@ -143,5 +141,4 @@ public class Genero {
 			return false;
 		}
 	}
-
 }

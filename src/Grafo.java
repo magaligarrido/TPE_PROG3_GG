@@ -16,13 +16,13 @@ public interface Grafo<T> {
 	public void borrarArco(int verticeId1, int verticeId2);
 
 	// Verifica si existe un vertice
-	public boolean contieneVertice(int verticeId);
+	public boolean contieneVertice(String verticeNombre);
 
 	// Verifica si existe un arco entre dos vertices
 	public boolean existeArco(String origen, String destino);
 
 	// Obtener el arco que conecta el verticeId1 con el verticeId2
-	public Arco<T> obtenerArco(int verticeId1, int verticeId2);
+	public Arco<T> obtenerArco(String origen, String destino);
 
 	// Devuelve la cantidad total de arcos en el grafo
 	public int cantidadArcos();
@@ -36,9 +36,7 @@ public interface Grafo<T> {
 
 	// Obtiene un iterador que permite recorrer todos los arcos del grafo
 	public Iterator<Arco<Integer>> obtenerArcos();
-
-	// Obtiene un iterador que permite recorres todos los arcos que parten desde
-	// verticeId
-	public Iterator<Arco<T>> obtenerArcos(String verticeId);
-
+	
+	//devuelvo la cantidad total de vertices
+	public int cantidadVertices();
 }

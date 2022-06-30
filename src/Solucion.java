@@ -23,5 +23,4 @@ public class Solucion {
 		salida = salida + "\n Tamaño del camino: " + this.getSize();
 		return salida;
 	}
-
 }

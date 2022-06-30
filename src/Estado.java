@@ -47,7 +47,6 @@ public class Estado {
 	}
 
 	public void agregarAlCamino(Arco<Integer> arco) {
-
 		this.caminoActual.add(arco);
 		this.generoActual = arco.getVerticeDestino().getGenero();
 	}
@@ -62,6 +61,7 @@ public class Estado {
 
 	public ArrayList<Arco<Integer>> getCamino() {
 		ArrayList<Arco<Integer>> salida = new ArrayList<>();
+		
 		for (Arco<Integer> arco : caminoActual) {
 			salida.add(arco);
 		}
@@ -83,5 +83,4 @@ public class Estado {
 	public int getSize() {
 		return this.caminoActual.size();
 	}
-
 }
